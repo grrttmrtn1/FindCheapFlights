@@ -1,5 +1,7 @@
 import requests
 import datetime
+import smtplib
+from email.mime.text import MIMEText
 
 airports = [
     {
@@ -132,5 +134,18 @@ try:
         </body>
         </html>
         """
+        sender_email = ""
+        sender_password = ""
+        recipient_email = ""
+        subject = ""
+        body = html
+        html_message = MIMEText(body, 'html')
+        html_message['Subject'] = subject
+        html_message['From'] = sender_email
+        html_message['To'] = recipient_email
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(sender_email, sender_password)
+            server.sendmail(sender_email, recipient_email, html_message.as_string())
+
 except requests.exceptions.RequestException as e:
     raise SystemExit(e) 

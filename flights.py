@@ -19,15 +19,17 @@ airports = [
         "id": "=",
         "code": ""
     }]
-
 def get_upcoming_friday():
     today = datetime.date.today()
     # Calculate the number of days until the next Friday (5)
-    days_until_friday = (4 - today.weekday() + 7) % 7
-    if days_until_friday == 0:  # If today is Friday, get the next Friday
-        days_until_friday = 7
-    upcoming_friday = today + datetime.timedelta(days=days_until_friday)
-    return upcoming_friday.strftime("%Y-%m-%d")
+    if datetime.datetime.today().weekday() == 4:
+        return today.strftime("%Y-%m-%d")
+    else:
+        days_until_friday = (4 - today.weekday() + 7) % 7
+        if days_until_friday == 0:  # If today is Friday, get the next Friday
+            days_until_friday = 7
+        upcoming_friday = today + datetime.timedelta(days=days_until_friday)
+        return upcoming_friday.strftime("%Y-%m-%d")
 
 def get_upcoming_saturday():
     today = datetime.date.today()
